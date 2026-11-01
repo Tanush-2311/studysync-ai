@@ -190,6 +190,17 @@ The browser sends requests to the Express API; it never connects directly to Mon
 
 ## 11. Deployment notes
 
+### Public sample demo on GitHub Pages
+
+The workflow in `.github/workflows/deploy-pages.yml` builds and publishes the frontend whenever `main` is updated. To enable it:
+
+1. Open this repository on GitHub and go to **Settings → Pages**.
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+3. Open the **Actions** tab and wait for **Deploy StudySync demo to GitHub Pages** to complete.
+4. Share `https://Tanush-2311.github.io/studysync-ai/` with your friend. They can select **Try interactive demo**; their sample changes stay in their own browser.
+
+This Pages deployment is the sample frontend only. It does not provide accounts, MongoDB persistence, PDF upload, or live AI. If the URL shows 404, check that Pages uses GitHub Actions and the deployment workflow succeeded.
+
 Deploy the `server` as a Node.js service and the `client` as a static Vite site. Set the server's `MONGODB_URI`, a new strong `JWT_SECRET`, `CLIENT_ORIGIN`, and optional AI settings in the hosting provider's secret/environment settings. Set the frontend `VITE_API_URL` to the deployed API origin when frontend and API are on separate origins. Configure CORS for the exact deployed frontend URL and use HTTPS. Never use development credentials in production.
 
 ## 12. Security reminder
