@@ -1,0 +1,13 @@
+{
+  "name": "studysync-ai",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": ["client", "server"],
+  "scripts": {
+    "dev": "concurrently -n api,web -c cyan,magenta \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w client",
+    "test": "npm run test -w server && npm run test -w client",
+    "seed": "npm run seed -w server"
+  },
+  "devDependencies": { "concurrently": "^9.1.2" }
+}
