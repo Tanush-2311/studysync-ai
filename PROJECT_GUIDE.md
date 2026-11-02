@@ -201,7 +201,13 @@ The workflow in `.github/workflows/deploy-pages.yml` builds and publishes the fr
 
 This Pages deployment is the sample frontend only. It does not provide accounts, MongoDB persistence, PDF upload, or live AI. If the URL shows 404, check that Pages uses GitHub Actions and the deployment workflow succeeded.
 
-Deploy the `server` as a Node.js service and the `client` as a static Vite site. Set the server's `MONGODB_URI`, a new strong `JWT_SECRET`, `CLIENT_ORIGIN`, and optional AI settings in the hosting provider's secret/environment settings. Set the frontend `VITE_API_URL` to the deployed API origin when frontend and API are on separate origins. Configure CORS for the exact deployed frontend URL and use HTTPS. Never use development credentials in production.
+### Full-stack sample deployment
+
+The repository includes a Render Blueprint in `render.yaml` for the Express API. In Render, create a new Blueprint from this GitHub repository and provide `MONGODB_URI` during setup. Render generates `JWT_SECRET`; `AI_API_KEY` is optional for live AI features. The Blueprint uses the Pages origin for `CLIENT_ORIGIN` and exposes `/api/health` as its health check.
+
+After Render creates the API, copy its HTTPS service URL. In GitHub, open **Settings → Secrets and variables → Actions → Variables**, add a repository variable named `VITE_API_URL` with that URL (no trailing slash), then run the **Deploy StudySync demo to GitHub Pages** workflow again. The frontend build reads this variable to send sign-in and application requests to the deployed API.
+
+Before using accounts, make sure the Atlas database user password is current and Atlas **Network Access** allows the deployed service to connect. Restrict access to the hosting provider's outbound IPs where possible; avoid a permanent `0.0.0.0/0` rule. Do not put `MONGODB_URI`, `JWT_SECRET`, or `AI_API_KEY` in GitHub Pages variables or frontend code. The Render free service can spin down while idle and is intended for demos, not an always-on production service. Never use development credentials in production.
 
 ## 12. Security reminder
 
