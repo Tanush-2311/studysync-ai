@@ -27,7 +27,7 @@ jobs:
         run: npm ci
       - name: Build frontend for project Pages URL
         env:
-          VITE_API_URL: ${{ vars.VITE_API_URL }}
+          VITE_API_URL: https://studysync-api-jz3v.onrender.com
         run: npm run build -w client
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
